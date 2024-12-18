@@ -1,0 +1,30 @@
+.background-space {
+    background-color: #080E4B;
+    border: 2px solid black;
+    border-radius: 8px;
+    height: 820px;
+    width: 1350px;
+    padding: 20px;
+    margin-top: -25px;
+    margin-left: 100px;
+    position: relative;
+}
+
+.user-input {
+    height: 40px;
+    width: 1250px;
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    border-radius: 18px;
+}
+
+.submit-prompt {
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+    background-color: #00ff00;
+    position: absolute;
+    bottom: 17px;
+    right: 25px
+}

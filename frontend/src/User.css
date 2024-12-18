@@ -1,0 +1,9 @@
+.UserInfo {
+    height: 30px;
+    width: 30px;
+    background-color: black;
+    border-radius: 50px;
+    position: absolute;
+    right: 40px;
+    bottom: 150px;
+}
