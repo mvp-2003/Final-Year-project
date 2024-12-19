@@ -2,29 +2,29 @@
     background-color: #080E4B;
     border: 2px solid black;
     border-radius: 8px;
-    height: 820px;
-    width: 1350px;
+    height: calc(100vh - 55px);
+    width: 1200px;
     padding: 20px;
     margin-top: -25px;
-    margin-left: 100px;
+    margin-left: 140px;
     position: relative;
 }
 
 .user-input {
-    height: 40px;
-    width: 1250px;
+    height: 30px;
+    width: 1000px;
     position: absolute;
-    bottom: 20px;
-    left: 40px;
+    bottom: 30px;
+    left: 80px;
     border-radius: 18px;
 }
 
 .submit-prompt {
-    border-radius: 50px;
-    height: 50px;
-    width: 50px;
+    border-radius: 75px;
+    height: 40px;
+    width: 40px;
     background-color: #00ff00;
     position: absolute;
-    bottom: 17px;
-    right: 25px
+    bottom: 28px;
+    right: 80px
 }
