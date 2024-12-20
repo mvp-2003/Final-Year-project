@@ -1,6 +1,6 @@
 .background-space {
-    background-color: #080E4B;
-    border: 2px solid black;
+    background-color: #05082d;
+    border: 2px solid rgb(213, 205, 205);
     border-radius: 8px;
     height: calc(100vh - 55px);
     width: 1200px;
@@ -23,7 +23,7 @@
     border-radius: 75px;
     height: 40px;
     width: 40px;
-    background-color: #00ff00;
+    background-color: #55bcef;
     position: absolute;
     bottom: 28px;
     right: 80px
