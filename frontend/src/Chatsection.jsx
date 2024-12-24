@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
 import './Chatsection.css'
-import User from './User.jsx'
 import axios from 'axios';
 import Chatbubble from './Chatbubble.jsx';
 
@@ -42,10 +41,14 @@ function ChatSection() {
 
     return (
         <div className="background-space">
-            <User />
             <div className="chat-messages">
                 {messages.map((msg) => (
-                    <Chatbubble key={msg.id} sender={msg.sender} text={msg.text} />
+                    <Chatbubble 
+                        key={msg.id} 
+                        sender={msg.sender} 
+                        text={msg.text} 
+                        className={msg.sender === 'user' ? 'user-message' : 'bot-message'} 
+                    />
                 ))}
             </div>
             <textarea
