@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './Chatsection.css'
 import User from './User.jsx'
 import axios from 'axios';
@@ -7,6 +7,7 @@ import Chatbubble from './Chatbubble.jsx';
 function ChatSection(){
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
+    const inputRef = useRef(null);
 
     const handleSubmit = async () => {
         if (input.trim()) {
@@ -22,6 +23,7 @@ function ChatSection(){
             }
 
             setInput('');
+            adjustTextareaHeight();
         }
     };
 
@@ -30,6 +32,12 @@ function ChatSection(){
             e.preventDefault();
             handleSubmit();
         }
+    };
+
+    const adjustTextareaHeight = () => {
+        const textarea = inputRef.current;
+        textarea.style.height = 'auto';
+        textarea.style.height = `${Math.min(textarea.scrollHeight, 60)}px`;
     };
 
     return(
@@ -41,9 +49,13 @@ function ChatSection(){
                 ))}
             </div>
             <textarea
+                ref={inputRef}
                 className="user-input"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) => {
+                    setInput(e.target.value);
+                    adjustTextareaHeight();
+                }}
                 onKeyDown={handleKeyDown}
                 placeholder="Type your message..."
                 rows={1}

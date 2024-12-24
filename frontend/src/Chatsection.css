@@ -13,17 +13,18 @@
 }
 
 .user-input {
-    height: 35px;
+    height: 45px;
     width: 1000px;
     position: absolute;
-    bottom: 30px;
+    bottom: 25px;
     left: 80px;
-    border-radius: 18px;
+    border-radius: 16px;
     padding-left: 20px;
     padding-right: 20px;
-    line-height: 1.8;
+    padding-top: 10px;
+    line-height: 1.2;
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: 18px;
     font-family: 'Poppins', sans-serif;
     max-height: 60px;
     overflow-y: auto;
@@ -35,7 +36,7 @@
     height: 40px;
     width: 40px;
     background-color: #55bcef;
-    background-image: url('../public/send-logo.png');
+    background-image: url('/send-logo.png');
     background-size: 80%;
     background-position: 40% 78%;
     background-repeat: no-repeat;
