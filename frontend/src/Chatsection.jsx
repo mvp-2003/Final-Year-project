@@ -22,7 +22,6 @@ function ChatSection() {
             }
 
             setInput('');
-            adjustTextareaHeight();
         }
     };
 
@@ -31,12 +30,6 @@ function ChatSection() {
             e.preventDefault();
             handleSubmit();
         }
-    };
-
-    const adjustTextareaHeight = () => {
-        const textarea = inputRef.current;
-        textarea.style.height = 'auto';
-        textarea.style.height = `${Math.min(textarea.scrollHeight, 60)}px`;
     };
 
     return (
@@ -55,10 +48,7 @@ function ChatSection() {
                 ref={inputRef}
                 className="user-input"
                 value={input}
-                onChange={(e) => {
-                    setInput(e.target.value);
-                    adjustTextareaHeight();
-                }}
+                onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Type your message..."
                 rows={1}
