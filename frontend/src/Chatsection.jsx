@@ -4,7 +4,7 @@ import User from './User.jsx'
 import axios from 'axios';
 import Chatbubble from './Chatbubble.jsx';
 
-function ChatSection(){
+function ChatSection() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const inputRef = useRef(null);
@@ -16,7 +16,7 @@ function ChatSection(){
 
             try {
                 const response = await axios.post('/api/chat', { message: input });
-                const botMessage = { id: Date.now() + 1, sender: 'bot', text: response.data.reply };
+                const botMessage = { id: Date.now() + 1, sender: 'bot', text: response.data.response };
                 setMessages((prevMessages) => [...prevMessages, botMessage]);
             } catch (error) {
                 console.error('Error sending message:', error);
@@ -40,9 +40,9 @@ function ChatSection(){
         textarea.style.height = `${Math.min(textarea.scrollHeight, 60)}px`;
     };
 
-    return(
+    return (
         <div className="background-space">
-            <User/>
+            <User />
             <div className="chat-messages">
                 {messages.map((msg) => (
                     <Chatbubble key={msg.id} sender={msg.sender} text={msg.text} />
