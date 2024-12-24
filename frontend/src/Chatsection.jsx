@@ -25,6 +25,13 @@ function ChatSection(){
         }
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmit();
+        }
+    };
+
     return(
         <div className="background-space">
             <User/>
@@ -33,13 +40,16 @@ function ChatSection(){
                     <Chatbubble key={msg.id} sender={msg.sender} text={msg.text} />
                 ))}
             </div>
-            <input
+            <textarea
                 className="user-input"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
                 placeholder="Type your message..."
+                rows={1}
+                style={{ resize: 'none', overflowY: 'auto' }}
             />
-            <button className="submit-prompt" onClick={handleSubmit}>Send</button>
+            <button className="submit-prompt" onClick={handleSubmit}></button>
         </div>
     );
 }
