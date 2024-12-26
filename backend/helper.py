@@ -1,4 +1,4 @@
-required_details = ['gender', 'age', 'hair color', 'eye shape', 'eye color', 'facial structure', 'facial hair']
+required_details = ['gender', 'age', 'hair color', 'eye shape', 'eye color', 'facial structure', 'facial hair', 'nose shape']
 
 def rephrase_details(details):
     rephrased = []

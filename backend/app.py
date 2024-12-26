@@ -19,12 +19,16 @@ def frontpage_index():
 def chat():
     data = request.json
     user_message = data.get('message', '')
-    
+
+    input_ids = tokenizer.encode(user_message + tokenizer.eos_token, return_tensors='pt')
+    chat_history_ids = model.generate(input_ids, max_length=1000, pad_token_id=tokenizer.eos_token_id)
+    bot_response = tokenizer.decode(chat_history_ids[:, input_ids.shape[-1]:][0], skip_special_tokens=True)
+
     extracted_details = extract_details(user_message)
     missing_details = [detail for detail in required_details if detail not in extracted_details]
     
     if missing_details:
-        response = f"Please provide more details about: {', '.join(missing_details)}"
+        response = f"{bot_response} By the way, could you tell me more about: {', '.join(missing_details)}?"
     else:
         rephrased_details = rephrase_details(extracted_details)
         image_url = generate_image_with_dalle(rephrased_details)
