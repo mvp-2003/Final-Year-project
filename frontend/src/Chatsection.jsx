@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import './Chatsection.css'
+import './Chatsection.css';
 import axios from 'axios';
 import ChatBubbleUser from './ChatBubbleUser.jsx';
 import ChatBubbleBot from './ChatBubbleBot.jsx';
@@ -65,4 +65,4 @@ function ChatSection() {
     );
 }
 
-export default ChatSection
+export default ChatSection;
