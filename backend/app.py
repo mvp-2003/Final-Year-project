@@ -2,6 +2,8 @@ from flask import Flask, send_from_directory, request, jsonify
 from flask_cors import CORS
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
+from helper import rephrase_details, generate_image_with_dalle, required_details
+from detector import extract_details
 
 app = Flask(__name__, static_folder='../frontend/dist', template_folder='../frontend/dist')
 
@@ -17,9 +19,15 @@ def frontpage_index():
 def chat():
     data = request.json
     user_message = data.get('message', '')
-
-    inputs = tokenizer.encode(user_message + tokenizer.eos_token, return_tensors='pt')
-    reply_ids = model.generate(inputs, max_length=1000, pad_token_id=tokenizer.eos_token_id)
-    response = tokenizer.decode(reply_ids[:, inputs.shape[-1]:][0], skip_special_tokens=True)
-
+    
+    extracted_details = extract_details(user_message)
+    missing_details = [detail for detail in required_details if detail not in extracted_details]
+    
+    if missing_details:
+        response = f"Please provide more details about: {', '.join(missing_details)}"
+    else:
+        rephrased_details = rephrase_details(extracted_details)
+        image_url = generate_image_with_dalle(rephrased_details)
+        response = f"Is this similar to your suspect: {image_url}"
+    
     return jsonify({'response': response})
