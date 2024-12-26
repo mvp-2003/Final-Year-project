@@ -9,10 +9,10 @@ def extract_details(message):
     patterns = {
         'gender': r'\b(?:gender\s*is\s*)?(male|female|other)\b',
         'age': r'\b(?:age\s*is\s*)?(\d{1,2})\b',
-        'hair color': r'\b(?:hair\s*color\s*is\s*)?(black|brown|blonde|red|grey|white)\b',
-        'eye color': r'\b(?:eye\s*color\s*is\s*)?(blue|green|brown|hazel|grey)\b',
+        'hair color': r'\b(?:hair\s*color\s*is\s*|hair\s*is\s*)(black|brown|blonde|red|grey|white|green)\b',
+        'eye color': r'\b(?:eye\s*color\s*is\s*|eyes\s*are\s*|eyes\s*were\s*)(blue|green|brown|hazel|grey)\b',
         'facial structure': r'\b(?:facial\s*structure\s*is\s*)?(round|oval|square|heart)\b',
-        'facial hair': r'\b(?:facial\s*hair\s*is\s*)?(beard|mustache|clean-shaven)\b',
+        'facial hair': r'\b(?:facial\s*hair\s*is\s*)?(beard|mustache|clean-shaven|clean shaved|no facial hairs)\b',
         'nose shape': r'\b(?:nose\s*shape\s*is\s*)?(straight|hooked|button|upturned)\b'
     }
 
