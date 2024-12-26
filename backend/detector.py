@@ -1,7 +1,7 @@
 from transformers import pipeline
 import re
 
-chat_pipeline = pipeline("conversational", model="microsoft/DialoGPT-medium")
+chat_pipeline = pipeline("text-generation", model="microsoft/DialoGPT-medium")
 
 def extract_details(message):
     details = {}
@@ -24,5 +24,5 @@ def extract_details(message):
     return details
 
 def generate_conversational_response(user_message):
-    conversation = chat_pipeline(user_message)
-    return conversation.generated_responses[0]
+    response = chat_pipeline(user_message, max_length=100, num_return_sequences=1)
+    return response[0]['generated_text']
