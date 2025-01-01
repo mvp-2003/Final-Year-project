@@ -1,6 +1,6 @@
 from transformers import pipeline
 
-ner_pipeline = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english", aggregation_strategy="simple")
+ner_pipeline = pipeline("ner", model="dbmdz/bert-base-cased-finetuned-conll03-english", aggregation_strategy="simple")
 
 def extract_details(message):
     entities = ner_pipeline(message)
