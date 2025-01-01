@@ -16,5 +16,9 @@ def extract_details(message):
                 details['hair color'] = entity['word']
             else:
                 details['eye color'] = entity['word']
+        elif entity['entity_group'] == 'SHAPE':
+            details['face shape'] = entity['word']
+        elif entity['entity_group'] == 'MOUSTACHE':
+            details['has moustache'] = entity['word']
 
     return details
