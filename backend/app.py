@@ -8,15 +8,14 @@ app = Flask(__name__, static_folder='../frontend/dist', template_folder='../fron
 CORS(app)
 
 chat_history = {}
-model_name = "microsoft/DialoGPT-small"
+model_name = "microsoft/DialoGPT-medium"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
 initial_prompts = [
-    "Hello! How can I assist you with identifying the suspect?",
-    "I'm here to help you describe the suspect. What can you tell me?",
-    "Welcome! I'll help you document the suspect's details. What information do you have?",
-    "Hi there! I'm ready to help identify the suspect. What details can you share?",
+    ". I'm here to help identify suspects. What information can you share?",
+    ". I'm ready to assist with suspect identification. What details do you have?",
+    ". I'm here to help with the investigation. What can you tell me about the suspect?",
 ]
 
 @app.route('/')
@@ -33,7 +32,7 @@ def chat():
         chat_history[session_id] = {
             'details': {},
             'dialog_history': [],
-            'context': "You are a helpful assistant collecting information about a suspect. Be friendly and engaging."
+            'context': "You are a helpful and friendly AI assistant. Be engaging and natural in your responses."
         }
     
     new_details = extract_details(user_message)
@@ -45,7 +44,7 @@ def chat():
     context = chat_history[session_id]['context']
     
     if not dialog_history:
-        input_text = context
+        input_text = context + " " + user_message
     else:
         dialog_history.append(user_message)
         recent_messages = dialog_history[-3:] if len(dialog_history) > 3 else dialog_history
@@ -56,8 +55,8 @@ def chat():
         input_ids,
         max_length=1000,
         pad_token_id=tokenizer.eos_token_id,
-        temperature=0.7,
-        top_p=0.9,
+        temperature=0.9,
+        top_p=0.95,
         no_repeat_ngram_size=3
     )
     
@@ -65,7 +64,7 @@ def chat():
     
     if not dialog_history and (not dialog_response or len(dialog_response.strip()) < 10):
         from random import choice
-        dialog_response = choice(initial_prompts)
+        dialog_response = "Hello! Nice to meet you" + choice(initial_prompts)
     
     structured_response = generate_response(current_details, user_message)
     
