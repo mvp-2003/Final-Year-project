@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './Chatsection.css';
 import axios from 'axios';
 import ChatBubbleUser from './ChatBubbleUser.jsx';
@@ -9,6 +9,23 @@ function ChatSection() {
     const [input, setInput] = useState('');
     const [sessionId] = useState(Date.now().toString());
     const inputRef = useRef(null);
+
+    useEffect(() => {
+        const getInitialGreeting = async () => {
+            try {
+                const response = await axios.post('/api/chat', { 
+                    message: "Hi",
+                    session_id: sessionId
+                });
+                const botMessage = { id: Date.now(), sender: 'bot', text: response.data.response };
+                setMessages([botMessage]);
+            } catch (error) {
+                console.error('Error getting initial greeting:', error);
+            }
+        };
+
+        getInitialGreeting();
+    }, [sessionId]);
 
     const handleSubmit = async () => {
         if (input.trim()) {
