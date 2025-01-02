@@ -7,6 +7,7 @@ import ChatBubbleBot from './ChatBubbleBot.jsx';
 function ChatSection() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
+    const [sessionId] = useState(Date.now().toString());
     const inputRef = useRef(null);
 
     const handleSubmit = async () => {
@@ -15,7 +16,10 @@ function ChatSection() {
             setMessages([...messages, userMessage]);
 
             try {
-                const response = await axios.post('/api/chat', { message: input });
+                const response = await axios.post('/api/chat', { 
+                    message: input,
+                    session_id: sessionId
+                });
                 const botMessage = { id: Date.now() + 1, sender: 'bot', text: response.data.response };
                 setMessages((prevMessages) => [...prevMessages, botMessage]);
             } catch (error) {
