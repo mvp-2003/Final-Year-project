@@ -31,7 +31,7 @@ def generate_response(extracted_details, user_message):
         details_list = []
         if 'hair color' in extracted_details:
             details_list.append(f"hair color is {extracted_details['hair color']}")
-        if 'face shape' or 'facial shape' in extracted_details:
+        if 'face shape' in extracted_details:
             details_list.append(f"face shape is {extracted_details['face shape']}")
         if 'moustache' in extracted_details:
             has_moustache = "has a moustache" if extracted_details['has moustache'].lower() == 'yes' else "doesn't have a moustache"
