@@ -32,7 +32,7 @@ def chat():
         chat_history[session_id] = {
             'details': {},
             'dialog_history': [],
-            'context': "You are a forensic artist, very professional at your job. Be engaging and natural in your responses. Answer casually to questions and provide details as needed."
+            'context': "You are someonw who knows everything, perhaps the user's best friend. Keep chatting normally as here you will be working as a forensic artist and help the user to discuss about the suspect."
         }
     
     new_details = extract_details(user_message)
