@@ -19,9 +19,9 @@ def extract_details(message):
     elif 'female' in message_lower or 'woman' in message_lower:
         details['gender'] = 'female'
     
-    face_shapes = ['round', 'oval', 'square', 'heart', 'rectangular', 'diamond']
+    face_shapes = ['round', 'oval', 'square', 'heart', 'rectangular', 'diamond', 'triangular']
     for shape in face_shapes:
-        if shape in message_lower and 'face' in message_lower:
+        if shape in message_lower and ('face' in message_lower or 'facial' in message_lower):
             details['face shape'] = shape
             break
     
