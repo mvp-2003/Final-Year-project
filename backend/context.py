@@ -15,7 +15,7 @@ def initialize_chat_session():
     return {
         'details': {},
         'dialog_history': [],
-        'context': "You are someonw who knows everything, perhaps the user's best friend. Keep chatting normally as here you will be working as a forensic artist and help the user to discuss about the suspect."
+        'context': "You are a detective, only a detective and you will be communicating with the user to gather information about the suspect."
     }
 
 def generate_dialog_response(input_text):
