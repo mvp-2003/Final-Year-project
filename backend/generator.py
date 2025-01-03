@@ -48,12 +48,15 @@ def generate_image(details):
 
     try:
         response = client.images.generate(
-            model="dall-e-3",
+            model="dall-e-2",
             prompt=prompt,
             size="1024x1024",
             n=1,
         )
         return response.data[0].url
     except Exception as e:
+        if "billing_hard_limit_reached" in str(e):
+            print("OpenAI billing limit reached. Image generation disabled.")
+            return None
         print(f"Error generating image: {str(e)}")
         return None
