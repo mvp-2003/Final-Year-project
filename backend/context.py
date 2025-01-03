@@ -51,8 +51,8 @@ def process_chat(user_message, session_data):
     if not dialog_history:
         input_text = context + " " + user_message
     else:
-        dialog_history.append(user_message)
         recent_messages = dialog_history[-3:] if len(dialog_history) > 3 else dialog_history
+        recent_messages = recent_messages + [user_message]
         input_text = context + " " + " ".join(recent_messages)
     
     dialog_response = generate_dialog_response(input_text)
