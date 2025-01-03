@@ -30,7 +30,7 @@ def _format_response(dialog_response, structured_response, image_url):
     if "I need some more information" in structured_response:
         if dialog_response and len(dialog_response.strip()) >= 10:
             return {
-                'text': f"{dialog_response}\n\nBy the way, {structured_response.lower()}",
+                'text': f"{dialog_response}\n\n, {structured_response.lower()}",
                 'image_url': None
             }
         return {'text': structured_response, 'image_url': None}
