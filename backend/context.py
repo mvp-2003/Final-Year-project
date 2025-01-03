@@ -24,9 +24,11 @@ def generate_dialog_response(input_text):
         input_ids,
         max_length=1000,
         pad_token_id=tokenizer.eos_token_id,
+        do_sample=True,
         temperature=0.9,
         top_p=0.95,
-        no_repeat_ngram_size=3
+        no_repeat_ngram_size=3,
+        attention_mask=input_ids.new_ones(input_ids.shape)
     )
     return tokenizer.decode(chat_response_ids[:, input_ids.shape[-1]:][0], skip_special_tokens=True)
 

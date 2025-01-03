@@ -1,7 +1,7 @@
-import openai
+from openai import OpenAI
 import os
 
-openai.api_key = os.getenv('OPENAI_API_KEY')
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 def generate_dalle_prompt(details):
     if not details:
@@ -41,13 +41,13 @@ def generate_image(details):
         return None
 
     try:
-        response = openai.Image.create(
-            model="dall-e",
+        response = client.images.generate(
+            model="dall-e-3",
             prompt=prompt,
             size="1024x1024",
             n=1,
         )
-        return response['data'][0]['url']
+        return response.data[0].url
     except Exception as e:
         print(f"Error generating image: {str(e)}")
         return None
