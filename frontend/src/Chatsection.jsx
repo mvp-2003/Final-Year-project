@@ -17,7 +17,7 @@ function ChatSection() {
                     message: "Hi",
                     session_id: sessionId
                 });
-                const botMessage = { id: Date.now(), sender: 'bot', text: response.data.response };
+                const botMessage = { id: Date.now(), sender: 'bot', text: response.data.response.text, imageUrl: response.data.response.image_url };
                 setMessages([botMessage]);
             } catch (error) {
                 console.error('Error getting initial greeting:', error);
@@ -37,7 +37,7 @@ function ChatSection() {
                     message: input,
                     session_id: sessionId
                 });
-                const botMessage = { id: Date.now() + 1, sender: 'bot', text: response.data.response };
+                const botMessage = { id: Date.now() + 1, sender: 'bot', text: response.data.response.text, imageUrl: response.data.response.image_url };
                 setMessages((prevMessages) => [...prevMessages, botMessage]);
             } catch (error) {
                 console.error('Error sending message:', error);
@@ -64,10 +64,12 @@ function ChatSection() {
                             text={msg.text} 
                         />
                     ) : (
-                        <ChatBubbleBot 
-                            key={msg.id} 
-                            text={msg.text} 
-                        />
+                        <div key={msg.id}>
+                            <ChatBubbleBot 
+                                text={msg.text} 
+                            />
+                            {msg.imageUrl && <img src={msg.imageUrl} alt="Generated" />}
+                        </div>
                     )
                 ))}
             </div>
