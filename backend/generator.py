@@ -10,13 +10,16 @@ env_path = root_dir / '.env'
 load_dotenv(dotenv_path=env_path)
 
 api_key = os.getenv('FLUX_API_KEY')
+hf_token = os.getenv('HUGGINGFACE_TOKEN')
 if not api_key:
     raise ValueError("FLUX_API_KEY is not set in the environment variables.")
+if not hf_token:
+    raise ValueError("HUGGINGFACE_TOKEN is not set in the environment variables.")
 
 pipe = FluxPipeline.from_pretrained(
     "black-forest-labs/FLUX.1-dev",
     torch_dtype=torch.bfloat16,
-    use_auth_token=api_key
+    use_auth_token=hf_token
 )
 pipe.enable_model_cpu_offload()
 

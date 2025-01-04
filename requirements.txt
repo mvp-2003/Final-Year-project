@@ -1,3 +1,4 @@
+accelerate==1.2.1
 adal==1.2.7
 annotated-types==0.7.0
 anyio==4.7.0
@@ -80,6 +81,7 @@ poetry==1.8.5
 poetry-core==1.9.1
 poetry-plugin-export==1.8.0
 portalocker==2.10.1
+psutil==6.1.1
 ptyprocess==0.7.0
 pyasn1==0.6.1
 pycparser==2.22
