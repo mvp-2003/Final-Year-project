@@ -97,7 +97,6 @@ PySocks==1.7.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 pytz==2024.2
-pywin32==308
 pywin32-ctypes==0.2.3
 PyYAML==6.0.2
 RapidFuzz==3.11.0
