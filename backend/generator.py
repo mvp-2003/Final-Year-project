@@ -1,13 +1,12 @@
-from openai import OpenAI
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+import requests
 
 root_dir = Path(__file__).resolve().parent.parent
 env_path = root_dir / '.env'
 
 load_dotenv(dotenv_path=env_path)
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 def generate_dalle_prompt(details):
     if not details:
@@ -47,15 +46,21 @@ def generate_image(details):
         return None
 
     try:
-        response = client.images.generate(
-            prompt=prompt,
-            size="1024x1024",
-            n=1,
+        response = requests.post(
+            "https://api.flux.ai/v1/generate",
+            json={
+                "prompt": prompt,
+                "size": "1024x1024",
+                "n": 1,
+            },
+            headers={
+                "Authorization": f"Bearer {os.getenv('FLUX_API_KEY')}",
+                "Content-Type": "application/json"
+            }
         )
-        return response.data[0].url
+        
+        response.raise_for_status()
+        return response.json()['data'][0]['url']
     except Exception as e:
-        if "billing_hard_limit_reached" in str(e):
-            print("OpenAI billing limit reached. Image generation disabled.")
-            return None
         print(f"Error generating image: {str(e)}")
         return None
