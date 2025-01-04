@@ -9,7 +9,15 @@ env_path = root_dir / '.env'
 
 load_dotenv(dotenv_path=env_path)
 
-pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-dev", torch_dtype=torch.bfloat16)
+api_key = os.getenv('FLUX_API_KEY')
+if not api_key:
+    raise ValueError("FLUX_API_KEY is not set in the environment variables.")
+
+pipe = FluxPipeline.from_pretrained(
+    "black-forest-labs/FLUX.1-dev",
+    torch_dtype=torch.bfloat16,
+    use_auth_token=api_key
+)
 pipe.enable_model_cpu_offload()
 
 def generate_dalle_prompt(details):
