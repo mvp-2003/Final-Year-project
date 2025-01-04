@@ -48,7 +48,7 @@ def generate_image(details):
 
     try:
         response = client.images.generate(
-            model="dall-e-2",
+            model="dall-e",
             prompt=prompt,
             size="1024x1024",
             n=1,
