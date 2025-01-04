@@ -1,12 +1,16 @@
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-import requests
+import torch
+from diffusers import FluxPipeline
 
 root_dir = Path(__file__).resolve().parent.parent
 env_path = root_dir / '.env'
 
 load_dotenv(dotenv_path=env_path)
+
+pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-dev", torch_dtype=torch.bfloat16)
+pipe.enable_model_cpu_offload()
 
 def generate_dalle_prompt(details):
     if not details:
@@ -46,21 +50,18 @@ def generate_image(details):
         return None
 
     try:
-        response = requests.post(
-            "https://api.flux.ai/v1/generate",
-            json={
-                "prompt": prompt,
-                "size": "1024x1024",
-                "n": 1,
-            },
-            headers={
-                "Authorization": f"Bearer {os.getenv('FLUX_API_KEY')}",
-                "Content-Type": "application/json"
-            }
-        )
-        
-        response.raise_for_status()
-        return response.json()['data'][0]['url']
+        image = pipe(
+            prompt,
+            height=1024,
+            width=1024,
+            guidance_scale=3.5,
+            num_inference_steps=50,
+            max_sequence_length=512,
+            generator=torch.Generator("cpu").manual_seed(0)
+        ).images[0]
+
+        image.save("flux-dev.png")
+        return "flux-dev.png"
     except Exception as e:
         print(f"Error generating image: {str(e)}")
         return None
