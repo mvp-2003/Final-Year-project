@@ -19,7 +19,7 @@ pipe = StableDiffusionPipeline.from_pretrained(
     use_auth_token=hf_token
 )
 
-pipe.to("cpu")
+pipe.to("cuda")
 
 def generate_dalle_prompt(details):
     if not details:
