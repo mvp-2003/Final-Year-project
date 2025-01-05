@@ -2,23 +2,20 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 import torch
-from diffusers import FluxPipeline
+from diffusers import StableDiffusionPipeline
 
 root_dir = Path(__file__).resolve().parent.parent
 env_path = root_dir / '.env'
 
 load_dotenv(dotenv_path=env_path)
 
-api_key = os.getenv('FLUX_API_KEY')
 hf_token = os.getenv('HUGGINGFACE_TOKEN')
-if not api_key:
-    raise ValueError("FLUX_API_KEY is not set in the environment variables.")
 if not hf_token:
     raise ValueError("HUGGINGFACE_TOKEN is not set in the environment variables.")
 
-pipe = FluxPipeline.from_pretrained(
-    "black-forest-labs/FLUX.1-dev",
-    torch_dtype=torch.bfloat16,
+pipe = StableDiffusionPipeline.from_pretrained(
+    "CompVis/stable-diffusion-v1-4",
+    torch_dtype=torch.float16,
     use_auth_token=hf_token
 )
 pipe.enable_model_cpu_offload()
@@ -63,16 +60,15 @@ def generate_image(details):
     try:
         image = pipe(
             prompt,
-            height=1024,
-            width=1024,
-            guidance_scale=3.5,
+            height=512,
+            width=512,
+            guidance_scale=7.5,
             num_inference_steps=50,
-            max_sequence_length=512,
             generator=torch.Generator("cpu").manual_seed(0)
         ).images[0]
 
-        image.save("flux-dev.png")
-        return "flux-dev.png"
+        image.save("stable-diffusion-output.png")
+        return "stable-diffusion-output.png"
     except Exception as e:
         print(f"Error generating image: {str(e)}")
         return None
