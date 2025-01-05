@@ -18,7 +18,8 @@ pipe = StableDiffusionPipeline.from_pretrained(
     torch_dtype=torch.float16,
     use_auth_token=hf_token
 )
-pipe.enable_model_cpu_offload()
+
+pipe.to("cpu")
 
 def generate_dalle_prompt(details):
     if not details:
