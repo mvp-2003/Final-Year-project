@@ -14,7 +14,7 @@ if not hf_token:
     raise ValueError("HUGGINGFACE_TOKEN is not set in the environment variables.")
 
 pipe = StableDiffusionPipeline.from_pretrained(
-    "CompVis/stable-diffusion-v1-4",
+    "stabilityai/stable-diffusion-2-1-base",
     torch_dtype=torch.float16,
     use_auth_token=hf_token
 )
