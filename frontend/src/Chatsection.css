@@ -1,7 +1,7 @@
 .background-space {
-    background-color: #2E073F;
-    border: 2px solid rgb(213, 205, 205);
-    border-radius: 8px;
+    background: linear-gradient(145deg, #2E073F, #1C052A);
+    border: 4px solid rgb(70, 1, 83);
+    border-radius: 16px;
     height: calc(100vh - 55px);
     width: 1200px;
     padding: 20px;
@@ -10,6 +10,7 @@
     margin-right: auto;
     position: relative;
     overflow: auto;
+    box-shadow: 10px 10px 20px #1C052A, -10px -10px 20px #3A0A5A;
 }
 
 .user-input {
@@ -32,17 +33,18 @@
 
 .submit-prompt {
     border-radius: 75px;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     background-color: #55bcef;
     background-image: url('/send-logo.png');
     background-size: 80%;
     background-position: 40% 78%;
     background-repeat: no-repeat;
     position: absolute;
-    bottom: 36px;
+    bottom: 34px;
     right: 90px;
     transform: rotate(45deg);
+    border: 4px solid #000000;
 }
 
 .chat-messages {
@@ -52,4 +54,51 @@
     overflow-y: auto;
     max-height: calc(100vh - 150px);
     padding-right: 10px;
+}
+
+.input-container {
+    position: absolute;
+    bottom: 25px;
+    left: 80px;
+    width: 1000px;
+    display: flex;
+    background: white;
+    border-radius: 1rem;
+    background: linear-gradient(173deg, #23272f 0%, #14161a 100%);
+    box-shadow: 10px 10px 20px #0e1013, -10px -10px 40px #383e4b;
+    padding: 0.3rem;
+    gap: 0.3rem;
+}
+
+.input-container input {
+    border-radius: 0.8rem;
+    background: #23272f;
+    box-shadow: inset 5px 5px 10px #0e1013, inset -5px -5px 10px #383e4b, 0px 0px 100px rgba(255, 212, 59, 0), 0px 0px 100px rgba(255, 102, 0, 0);
+    width: 100%;
+    flex-basis: 100%;
+    height: 24px;
+    padding: 1rem;
+    border: none;
+    border: 1px solid transparent;
+    color: white;
+    transition: all 0.2s ease-in-out;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.input-container input:focus {
+    border: 1px solid #ffd43b;
+    outline: none;
+    box-shadow: inset 0px 0px 10px rgba(255, 102, 0, 0.5), inset 0px 0px 10px rgba(255, 212, 59, 0.5), 0px 0px 100px rgba(255, 212, 59, 0.5), 0px 0px 100px rgba(255, 102, 0, 0.5);
+}
+
+@media (max-width: 500px) {
+    .input-container {
+        flex-direction: column;
+    }
+
+    .input-container input {
+        border-radius: 0.8rem;
+    }
 }

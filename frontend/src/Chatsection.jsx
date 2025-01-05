@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Chatsection.css';
 import axios from 'axios';
 import ChatBubbleUser from './ChatBubbleUser.jsx';
@@ -8,7 +8,6 @@ function ChatSection() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [sessionId] = useState(Date.now().toString());
-    const inputRef = useRef(null);
 
     useEffect(() => {
         const getInitialGreeting = async () => {
@@ -47,13 +46,6 @@ function ChatSection() {
         }
     };
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            handleSubmit();
-        }
-    };
-
     return (
         <div className="background-space">
             <div className="chat-messages">
@@ -73,16 +65,15 @@ function ChatSection() {
                     )
                 ))}
             </div>
-            <textarea
-                ref={inputRef}
-                className="user-input"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Type your message..."
-                rows={1}
-                style={{ resize: 'none', overflowY: 'auto' }}
-            />
+            <div className="input-container">
+                <input
+                    placeholder="Enter your message..."
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+                />
+            </div>
             <button className="submit-prompt" onClick={handleSubmit}></button>
         </div>
     );
