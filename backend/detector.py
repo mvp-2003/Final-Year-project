@@ -1,4 +1,5 @@
 from transformers import pipeline
+import re
 
 ner_pipeline = pipeline("ner", model="dbmdz/bert-base-cased-finetuned-conll03-english", aggregation_strategy="simple")
 
@@ -14,9 +15,9 @@ def extract_details(message):
             details['hair color'] = color
             break
     
-    if 'male' in message_lower or 'man' in message_lower:
+    if re.search(r'\b(male|man)\b', message_lower):
         details['gender'] = 'male'
-    elif 'female' in message_lower or 'woman' in message_lower:
+    elif re.search(r'\b(female|woman)\b', message_lower):
         details['gender'] = 'female'
     
     face_shapes = ['round', 'oval', 'square', 'heart', 'rectangular', 'diamond', 'triangular']
@@ -26,7 +27,7 @@ def extract_details(message):
             break
     
     if 'moustache' in message_lower or 'mustache' in message_lower:
-        if 'no' in message_lower or "doesn't" in message_lower or 'not' in message_lower:
+        if 'no' in message_lower or "doesn't" in message_lower or 'does not' in message_lower:
             details['has moustache'] = 'no'
         else:
             details['has moustache'] = 'yes'
