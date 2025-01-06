@@ -15,8 +15,7 @@ if not hf_token:
 
 pipe = StableDiffusionPipeline.from_pretrained(
     "stabilityai/stable-diffusion-2-1-base",
-    torch_dtype=torch.float16,
-    use_auth_token=hf_token
+    torch_dtype=torch.float16
 )
 
 pipe.to("cuda")
