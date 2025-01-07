@@ -5,6 +5,9 @@ from diffusers import StableDiffusionPipeline
 
 root_dir = Path(__file__).resolve().parent.parent
 
+if not torch.cuda.is_available():
+    raise RuntimeError("GPU is not available. Please run this application on a machine with a GPU.")
+
 pipe = StableDiffusionPipeline.from_pretrained(
     "stabilityai/stable-diffusion-2-1-base",
     torch_dtype=torch.float16
