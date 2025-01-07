@@ -1,17 +1,9 @@
 import os
-from dotenv import load_dotenv
 from pathlib import Path
 import torch
 from diffusers import StableDiffusionPipeline
 
 root_dir = Path(__file__).resolve().parent.parent
-env_path = root_dir / '.env'
-
-load_dotenv(dotenv_path=env_path)
-
-hf_token = os.getenv('HUGGINGFACE_TOKEN')
-if not hf_token:
-    raise ValueError("HUGGINGFACE_TOKEN is not set in the environment variables.")
 
 pipe = StableDiffusionPipeline.from_pretrained(
     "stabilityai/stable-diffusion-2-1-base",
