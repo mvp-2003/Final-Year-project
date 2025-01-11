@@ -15,7 +15,7 @@ pipe = StableDiffusionPipeline.from_pretrained(
 
 pipe.to("cuda")
 
-def generate_dalle_prompt(details):
+def generate_sd_prompt(details):
     if not details:
         return None
 
@@ -28,11 +28,11 @@ def generate_dalle_prompt(details):
 
     if 'hair color' in details:
         hair_color = details['hair color']
-        feature_descriptions.append(f"{hair_color} colored hair")
+        feature_descriptions.append(f"with {hair_color} hair")
 
     if 'face shape' in details:
         face_shape = details['face shape'].lower()
-        feature_descriptions.append(f"a {face_shape} face shape")
+        feature_descriptions.append(f"having a {face_shape} face shape")
 
     if 'has moustache' in details:
         has_moustache = details['has moustache'].lower() == 'yes'
@@ -42,12 +42,12 @@ def generate_dalle_prompt(details):
             feature_descriptions.append("clean-shaven, without a moustache")
 
     features_text = ", ".join(feature_descriptions)
-    detailed_prompt = f"{base_prompt} {features_text}. The image should be a professional headshot with neutral background, good lighting, and sharp focus on facial features. Style: photorealistic portrait photography."
+    detailed_prompt = f"{base_prompt} {features_text}. The image should be a professional headshot with a neutral background, good lighting, and sharp focus on facial features. Style: photorealistic portrait photography."
 
     return detailed_prompt
 
 def generate_image(details):
-    prompt = generate_dalle_prompt(details)
+    prompt = generate_sd_prompt(details)
 
     if not prompt:
         return None
