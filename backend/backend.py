@@ -1,7 +1,7 @@
 from detector import extract_details
 from logic import generate_response
 from context import initialize_chat_session, process_chat, get_detail_context
-from generator import generate_sd_prompt
+from generator import generate_sd_prompt, generate_image
 
 chat_history = {}
 
@@ -17,7 +17,7 @@ def process_chat_message(user_message, session_id='default'):
     dialog_response = process_chat(user_message, chat_history[session_id])
     structured_response = generate_response(current_details, user_message)
     
-    image_path = generate_sd_prompt(current_details)
+    image_path = generate_image(current_details)
     image_url = f"/images/{image_path}" if image_path else None
     response = _format_response(dialog_response, structured_response, image_url)
     

@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 import torch
 from diffusers import StableDiffusionPipeline
+import time
 
 root_dir = Path(__file__).resolve().parent.parent
 
@@ -62,8 +63,10 @@ def generate_image(details):
             generator=torch.Generator("cpu").manual_seed(0)
         ).images[0]
 
-        image.save("stable-diffusion-output.png")
-        return "stable-diffusion-output.png"
+        timestamp = int(time.time())
+        image_filename = f"stable-diffusion-output-{timestamp}.png"
+        image.save(image_filename)
+        return image_filename
     except Exception as e:
         print(f"Error generating image: {str(e)}")
         return None
