@@ -18,3 +18,7 @@ def chat():
     response = process_chat_message(user_message, session_id)
     
     return jsonify({'response': response})
+
+@app.route('/images/<path:filename>', methods=['GET'])
+def serve_image(filename):
+    return send_from_directory('.', filename)

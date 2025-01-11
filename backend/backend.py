@@ -17,7 +17,8 @@ def process_chat_message(user_message, session_id='default'):
     dialog_response = process_chat(user_message, chat_history[session_id])
     structured_response = generate_response(current_details, user_message)
     
-    image_url = generate_image(current_details)
+    image_path = generate_image(current_details)
+    image_url = f"/images/{image_path}" if image_path else None
     response = _format_response(dialog_response, structured_response, image_url)
     
     chat_history[session_id]['dialog_history'].append(user_message)
