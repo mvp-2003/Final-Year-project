@@ -36,7 +36,12 @@ function ChatSection() {
                     message: input,
                     session_id: sessionId
                 });
-                const botMessage = { id: Date.now() + 1, sender: 'bot', text: response.data.response.text, imageUrl: response.data.response.image_url };
+                const botMessage = { 
+                    id: Date.now() + 1, 
+                    sender: 'bot', 
+                    text: response.data.response.text, 
+                    imageUrl: response.data.response.image_url
+                };
                 setMessages((prevMessages) => [...prevMessages, botMessage]);
             } catch (error) {
                 console.error('Error sending message:', error);
